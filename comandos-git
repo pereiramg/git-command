@@ -1,0 +1,26 @@
+git clone --> Para clonar um repo para uma nova pasta local
+git init --> Transforma um projeto (pasta onde está o projeto) em um repositório GIT, com controle de versão
+git add --> Permite colocar os arquivos modificados em modo stage, ou seja, preparados para um commit
+  git add seu_aquivo --> Adicionar apenas esse arquivo
+  git add . --> Adiciona todos modificados
+  git add -u --> Adiciona todos 
+git mv --> Para mover ou renomear aquivos ou diretorios
+git restore --> 
+git rm --> 
+git bisect --> 
+git diff --> 
+git grep --> 
+git log --> 
+git show --> 
+git status --> 
+git branch --> 
+git commit --> 
+git merge --> 
+git rebase --> 
+git reset --> 
+git switch --> 
+git tag --> 
+git fetch --> 
+git pull --> 
+git push --> 
+  
