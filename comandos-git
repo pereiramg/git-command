@@ -5,10 +5,26 @@ git add --> Permite colocar os arquivos modificados em modo stage, ou seja, prep
   git add . --> Adiciona todos modificados
   git add -u --> Adiciona todos 
 git mv --> Para mover ou renomear aquivos ou diretorios
-git restore --> 
-git rm --> 
-git bisect --> 
-git diff --> 
+git restore --> Ele permite descartar mudanças locais
+  git restore arquivo.txt --> Remove todas as alterações locais não salvas em commit
+  git restore . --> Descarta todas as alterações locais
+  git restore --staged arquivo.txt --> Remover um arquivo do staging (desfazer git add)
+  git restore --source=<commit> arquivo.txt --> Restaurar um arquivo a partir de um commit específico
+  git restore --staged --worktree arquivo.txt --> Restaurar staging e working directory ao mesmo tempo
+git rm --> remover arquivos de um repositório Git, tanto do working directory quanto do índice (staging area), preparando essa remoção para o próximo commit.
+git bisect --> Encontrar exatamente qual commit introduziu um bug, usando busca binária no histórico do repositório
+  git bisect start --> Iniciar o bisect
+  git bisect bad --> Marcar o commit ruim (geralmente o atual)
+  git bisect good <commit_hash> --> Marcar um commit bom
+  git bisect good --> Testar o commit sugerido
+  git bisect bad --> Testar o commit sugerido
+  git bisect reset --> Finalizar e voltar ao estado original
+git diff --> Comparar mudanças entre arquivos, commits, branches ou estágios dentro de um repositório Git
+  git diff --staged | git diff --cached --> Ver alterações já adicionadas ao staging
+  git diff arquivo.txt --> Comparar um arquivo específico
+  git diff <commit1> <commit2> --> Comparar dois commits
+  git diff main..develop --> Comparar branches. Mostra o que existe em develop e não em main.
+  git diff HEAD~1 --> Comparar commit atual com outro
 git grep --> 
 git log --> 
 git show --> 
