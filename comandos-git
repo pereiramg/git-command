@@ -1,17 +1,23 @@
 git clone --> Para clonar um repo para uma nova pasta local
+
 git init --> Transforma um projeto (pasta onde está o projeto) em um repositório GIT, com controle de versão
+
 git add --> Permite colocar os arquivos modificados em modo stage, ou seja, preparados para um commit
   git add seu_aquivo --> Adicionar apenas esse arquivo
   git add . --> Adiciona todos modificados
   git add -u --> Adiciona todos 
+
 git mv --> Para mover ou renomear aquivos ou diretorios
+
 git restore --> Ele permite descartar mudanças locais
   git restore arquivo.txt --> Remove todas as alterações locais não salvas em commit
   git restore . --> Descarta todas as alterações locais
   git restore --staged arquivo.txt --> Remover um arquivo do staging (desfazer git add)
   git restore --source=<commit> arquivo.txt --> Restaurar um arquivo a partir de um commit específico
   git restore --staged --worktree arquivo.txt --> Restaurar staging e working directory ao mesmo tempo
+
 git rm --> remover arquivos de um repositório Git, tanto do working directory quanto do índice (staging area), preparando essa remoção para o próximo commit.
+
 git bisect --> Encontrar exatamente qual commit introduziu um bug, usando busca binária no histórico do repositório
   git bisect start --> Iniciar o bisect
   git bisect bad --> Marcar o commit ruim (geralmente o atual)
@@ -19,24 +25,125 @@ git bisect --> Encontrar exatamente qual commit introduziu um bug, usando busca 
   git bisect good --> Testar o commit sugerido
   git bisect bad --> Testar o commit sugerido
   git bisect reset --> Finalizar e voltar ao estado original
+
 git diff --> Comparar mudanças entre arquivos, commits, branches ou estágios dentro de um repositório Git
   git diff --staged | git diff --cached --> Ver alterações já adicionadas ao staging
   git diff arquivo.txt --> Comparar um arquivo específico
   git diff <commit1> <commit2> --> Comparar dois commits
   git diff main..develop --> Comparar branches. Mostra o que existe em develop e não em main.
   git diff HEAD~1 --> Comparar commit atual com outro
-git grep --> 
-git log --> 
-git show --> 
-git status --> 
-git branch --> 
-git commit --> 
-git merge --> 
-git rebase --> 
-git reset --> 
-git switch --> 
-git tag --> 
-git fetch --> 
-git pull --> 
-git push --> 
+
+git grep --> para procurar texto dentro dos arquivos versionados de um repositório Git, de forma muito mais rápida e precisa do que grep comum, porque ele entende o histórico, branches e commits do Git.
+  git grep "senha" --> Procura a palavra senha em todos os arquivos versionados
+  git grep -n "user(name)?" --> Buscar com regex. Mostra número da linha (-n).
+  git grep "timeout" develop --> Buscar em uma branch
+  git grep "API_KEY" main develop release --> Buscar em vários branches
+  git grep "senha" -- ':!*.md' --> Excluir arquivos ou pastas
+
+git log --> Para visualizar o histórico de commits de um repositório Git.
+  git log --oneline --> Mostrar histórico resumido (uma linha)
+  git log --oneline --graph --all --> Mostrar grafo de branches
+
+git show --> Usado para exibir informações detalhadas de um objeto Git, normalmente um commit, mas também pode mostrar tags, blobs (arquivos) e até trees.
+  git show v1.0.0 --> Ver detalhes de uma tag
+
+git status --> Usado para mostrar o estado atual do repositório Git
+
+git branch --> Usado para listar, criar, renomear, excluir e gerenciar branches (ramificações) em um repositório Git.
+  git branch -r --> Listar branches remotas
+  git branch -a --> Listar todas (locais + remotas)
+  git branch feature-login --> Criar uma nova branch
+  git branch hotfix-123 abc123 --> Criar branch a partir de um commit específico
+  git branch -m novo-nome --> Renomear a branch atual (falha se main já existir)
+  git branch -M novo-nome --> Renomeia forçando, mesmo se main já existir
+  git branch -d feature-login --> Excluir branch já mesclada
   
+git commit --> Usado para registrar oficialmente no histórico do Git as alterações que estão no staging area
+  git commit -m "Corrige validação de login" --> Commit com mensagem
+  git commit -a -m "Atualiza configurações" --> ommitar arquivos já modificados (atalho)
+
+
+Merge ===================== vs == Rebase
+Preserva histórico  	            Reescreve histórico
+Cria commit de merge	            Histórico linear
+Seguro em branches públicas	      Use só em branches locais
+
+git merge --> Usado para unir o histórico e as alterações de uma branch em outra
+  git merge feature-login --> Estando na branch main, traz as mudanças da feature-login.
+  git merge --no-ff feature-login --> Forçar commit de merge
+  git merge --abort --> Cancelar merge em andamento
+  git merge -X theirs feature-login --> Prioriza a branch sendo mesclada.
+
+git rebase --> Usado para reaplicar commits de uma branch sobre outra, criando um histórico linear e limpo
+  git rebase main --> Estando na branch feature, reaplica seus commits em cima de main.
+     --> Mantém a branch atualizada antes do merge
+            git checkout feature
+            git fetch origin
+            git rebase origin/main
+
+git reset --> usado para mover o ponteiro do Git (HEAD) para outro commit e controlar o estado do staging area e do working directory.
+  git reset arquivo.txt --> Remover arquivo do staging
+  git reset --soft HEAD~1 --> Remove o último commit do histórico, Mantém tudo no staging, Nenhum arquivo é perdido
+  git reset HEAD~1 | git reset --mixed HEAD~1 --> Remove o commit, Limpa o staging, Mantém alterações nos arquivos
+  git reset --hard HEAD~1 --> Apaga commit, Apaga alterações do staging, Descarta alterações locais, Irreversível se não houver commit/stash.
+
+git reset ============== vs =======	git revert
+Reescreve histórico      	          Cria novo commit
+Perigoso em branches públicas    	  Seguro para produção
+Remove commits	                    Desfaz commits
+
+git switch --> Usado para trocar de branch de forma segura e explícita
+  git switch main --> Trocar de branch
+  git switch -c feature-login --> Criar e trocar para uma nova branch
+  git switch - --> Voltar para a branch anterior
+
+git switch ==== vs ======	git checkout
+Só branches	                Branches + arquivos
+Mais seguro	                Mais confuso
+Moderno	                    Legado
+
+git tag --> Usado para criar, listar e gerenciar tags, que são marcadores no histórico do Git.
+  git tag v1.0.0 --> Aponta para o commit atual (HEAD).
+  git tag -a v1.0.0 -m "Release versão 1.0.0" --> Tag anotada (recomendada), Ideal para releases oficiais.
+  git tag -a v1.2.0 abc123 -m "Hotfix segurança" --> Criar tag em commit específico
+  git tag -d v1.0.0 --> Apagar uma tag
+
+git fetch --> Usado para buscar atualizações do repositório remoto sem alterar seu código local.
+  git fetch --> Buscar atualizações do remoto padrão
+  git fetch origin --> Buscar de um remoto específico
+  git fetch --all --> Buscar todas as branches remotas
+  git fetch --prune --> Remover branches remotas deletadas
+  git fetch --tags --> Buscar tags
+  git fetch -v --> Ver progresso detalhado
+  Fluxo recomendado (boa prática)
+      git fetch origin
+      git status
+      git diff origin/main
+      git merge origin/main
+
+git pull --> Usado para atualizar sua branch local com as mudanças do repositório remoto. git pull = git fetch + git merge
+  git pull origin main --> Pull de um remoto e branch específicos
+  git pull --rebase --> Pull com rebase (boa prática). Evita commits de merge desnecessários.
+  git pull -v --> Mostrar mais detalhes
+  git pull --prune --> Limpar branches remotas removidas
+  
+git fetch ==== vs ======	git pull
+Apenas baixa	            Baixa + merge/rebase
+Seguro	                  Pode gerar conflitos
+Ideal para revisão	      Rápido, mas arriscado
+git pull = git fetch + git merge (por padrão)
+
+git push --> Usado para enviar commits da sua branch local para um repositório remoto
+  git push origin main --> Push com remoto e branch
+  git push -u origin feature-login --> Enviar nova branch
+  git push --force-with-lease --> Forçar push, Alternativa segura
+  git push origin v1.0.0 --> Enviar tags para o repositório remoto
+
+git remote --> usado para gerenciar os repositórios remotos associados a um repositório local.
+Ele define para onde você envia (push) e de onde você recebe (fetch/pull) alterações
+  git remote --> Listar remotos
+  git remote -v --> Listar remotos com detalhes (URLs)
+  git remote add origin https://github.com/usuario/repositorio.git --> Adicionar um remoto
+  git remote remove origin --> Remover um remoto
+  git remote rename origin upstream --> Renomear um remoto
+  git remote set-url origin git@github.com:usuario/repositorio.git --> Alterar URL do remoto
