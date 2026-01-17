@@ -62,12 +62,6 @@ git commit --> Usado para registrar oficialmente no histórico do Git as altera�
   git commit -m "Corrige validação de login" --> Commit com mensagem
   git commit -a -m "Atualiza configurações" --> ommitar arquivos já modificados (atalho)
 
-
-Merge ===================== vs == Rebase
-Preserva histórico  	            Reescreve histórico
-Cria commit de merge	            Histórico linear
-Seguro em branches públicas	      Use só em branches locais
-
 git merge --> Usado para unir o histórico e as alterações de uma branch em outra
   git merge feature-login --> Estando na branch main, traz as mudanças da feature-login.
   git merge --no-ff feature-login --> Forçar commit de merge
@@ -81,16 +75,28 @@ git rebase --> Usado para reaplicar commits de uma branch sobre outra, criando u
             git fetch origin
             git rebase origin/main
 
+=== Merge ===================== vs ======= Rebase ================
+Preserva histórico  	              Reescreve histórico
+Cria commit de merge	              Histórico linear
+Seguro em branches públicas	        Use só em branches locais
+===================================================================
+
 git reset --> usado para mover o ponteiro do Git (HEAD) para outro commit e controlar o estado do staging area e do working directory.
   git reset arquivo.txt --> Remover arquivo do staging
   git reset --soft HEAD~1 --> Remove o último commit do histórico, Mantém tudo no staging, Nenhum arquivo é perdido
   git reset HEAD~1 | git reset --mixed HEAD~1 --> Remove o commit, Limpa o staging, Mantém alterações nos arquivos
   git reset --hard HEAD~1 --> Apaga commit, Apaga alterações do staging, Descarta alterações locais, Irreversível se não houver commit/stash.
 
-git reset ============== vs =======	git revert
-Reescreve histórico      	          Cria novo commit
-Perigoso em branches públicas    	  Seguro para produção
-Remove commits	                    Desfaz commits
+git revert --> é utilizado para desfazer as alterações introduzidas por um commit específico, criando um novo commit 
+                que aplica o efeito inverso do commit original.
+  git revert <hash-do-commit> --> Sintaxe básica
+  git revert <commit_inicial>..<commit_final> --> Revertendo múltiplos commits
+
+===== git reset ============== vs =======	git revert =============
+Reescreve histórico      	            Cria novo commit
+Perigoso em branches públicas    	    Seguro para produção
+Remove commits	                      Desfaz commits
+===================================================================
 
 git switch --> Usado para trocar de branch de forma segura e explícita
   git switch main --> Trocar de branch
