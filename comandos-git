@@ -56,7 +56,7 @@ git branch --> Usado para listar, criar, renomear, excluir e gerenciar branches 
   git branch hotfix-123 abc123 --> Criar branch a partir de um commit específico
   git branch -m novo-nome --> Renomear a branch atual (falha se main já existir)
   git branch -M novo-nome --> Renomeia forçando, mesmo se main já existir
-  git branch -d feature-login --> Excluir branch já mesclada
+  git branch (-d|-D) feature-login --> Excluir branch já mesclada
   
 git commit --> Usado para registrar oficialmente no histórico do Git as alterações que estão no staging area
   git commit -m "Corrige validação de login" --> Commit com mensagem
