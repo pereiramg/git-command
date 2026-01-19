@@ -157,6 +157,7 @@ git push --> Usado para enviar commits da sua branch local para um repositório 
   git push -u origin feature-login --> Enviar nova branch
   git push --force-with-lease --> Forçar push, Alternativa segura
   git push origin v1.0.0 --> Enviar tags para o repositório remoto
+  git push origin testes --delete --> Realiza a deleção da branch testes
 
 
 git remote --> Usado para gerenciar os repositórios remotos associados a um repositório local.
