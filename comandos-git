@@ -62,6 +62,7 @@ git commit --> Usado para registrar oficialmente no histórico do Git as altera�
   git commit -m "Corrige validação de login" --> Commit com mensagem
   git commit -a -m "Atualiza configurações" --> ommitar arquivos já modificados (atalho)
 
+==================================================================
 git merge --> Usado para unir o histórico e as alterações de uma branch em outra
   git merge feature-login --> Estando na branch main, traz as mudanças da feature-login.
   git merge --no-ff feature-login --> Forçar commit de merge
@@ -103,10 +104,19 @@ git switch --> Usado para trocar de branch de forma segura e explícita
   git switch -c feature-login --> Criar e trocar para uma nova branch
   git switch - --> Voltar para a branch anterior
 
-git switch ==== vs ======	git checkout
+git checkout --> utilizado para alternar entre branches, criar branches e restaurar 
+                  arquivos a partir de commits ou branches específicos. Ele atua diretamente 
+                  no HEAD e no conteúdo do working directory.
+  git checkout develop --> Alternar entre branches
+  git checkout -b feature-login --> Criar e trocar para uma nova branch
+  git checkout -- arquivo.txt | git checkout a1b2c3d -- arquivo.txt --> Restaurar arquivos de um commit ou branch | a partir de um commit específico
+  git checkout feature-login --> Criar e trocar para uma nova branch
+
+git switch ===== vs ======	git checkout =========================
 Só branches	                Branches + arquivos
 Mais seguro	                Mais confuso
 Moderno	                    Legado
+===================================================================
 
 git tag --> Usado para criar, listar e gerenciar tags, que são marcadores no histórico do Git.
   git tag v1.0.0 --> Aponta para o commit atual (HEAD).
@@ -114,6 +124,8 @@ git tag --> Usado para criar, listar e gerenciar tags, que são marcadores no hi
   git tag -a v1.2.0 abc123 -m "Hotfix segurança" --> Criar tag em commit específico
   git tag -d v1.0.0 --> Apagar uma tag
 
+
+====================================================================
 git fetch --> Usado para buscar atualizações do repositório remoto sem alterar seu código local.
   git fetch --> Buscar atualizações do remoto padrão
   git fetch origin --> Buscar de um remoto específico
@@ -133,11 +145,12 @@ git pull --> Usado para atualizar sua branch local com as mudanças do repositó
   git pull -v --> Mostrar mais detalhes
   git pull --prune --> Limpar branches remotas removidas
   
-git fetch ==== vs ======	git pull
+git fetch ==== vs ======	git pull ===============================
 Apenas baixa	            Baixa + merge/rebase
 Seguro	                  Pode gerar conflitos
 Ideal para revisão	      Rápido, mas arriscado
 git pull = git fetch + git merge (por padrão)
+===================================================================
 
 git push --> Usado para enviar commits da sua branch local para um repositório remoto
   git push origin main --> Push com remoto e branch
@@ -145,8 +158,9 @@ git push --> Usado para enviar commits da sua branch local para um repositório 
   git push --force-with-lease --> Forçar push, Alternativa segura
   git push origin v1.0.0 --> Enviar tags para o repositório remoto
 
-git remote --> usado para gerenciar os repositórios remotos associados a um repositório local.
-Ele define para onde você envia (push) e de onde você recebe (fetch/pull) alterações
+
+git remote --> Usado para gerenciar os repositórios remotos associados a um repositório local.
+                Ele define para onde você envia (push) e de onde você recebe (fetch/pull) alterações
   git remote --> Listar remotos
   git remote -v --> Listar remotos com detalhes (URLs)
   git remote add origin https://github.com/usuario/repositorio.git --> Adicionar um remoto
